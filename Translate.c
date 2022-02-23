@@ -124,7 +124,7 @@ State f_AnyState(int c){
 	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
 	if (c == 236) return M_STATE; 	 /* If integer is a representation of greek m -> goto M_STATE*/
 	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
-	printChar(c);					 /* Else print whatever that integer is*/
+	printChar(c);			 /* Else print whatever that integer is*/
 	return ANY_STATE;
 }
 
@@ -134,8 +134,8 @@ State f_NState(int c){
 		putchar('d'); 
 		return ANY_STATE;
 	}
-	putchar('n');
-	printChar(c);
+	putchar('n');			 /* Print whatever you remember*/
+	printChar(c);			 /* Print whatever the integer is*/
 	if (c == 237) return N_STATE;    /* If integer is a representation of greek n -> goto N_STATE*/
 	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
 	return ANY_STATE;
@@ -147,7 +147,8 @@ State f_NCAPState(int c){
 		putchar('D');
 		return ANY_STATE;
 	}
-	putchar('N');
+	putchar('N');   		 /* Print whatever you remember*/
+	printChar(c);                    /* Print whatever the integer is*/
 	if (c == 237) return N_STATE;    /* If integer is a representation of greek n -> goto N_STATE*/
 	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
 	return ANY_STATE;
@@ -159,7 +160,7 @@ State f_MState(int c){
 		putchar('b'); 
 		return ANY_STATE;
 	}
-	putchar('m');
+	putchar('m');			 /* Print whatever you remember*/
 	printChar(c);                    /* Print whatever the integer is*/
 	if (c == 236) return M_STATE;    /* If integer is a representation of greek m -> goto M_STATE*/
 	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
@@ -172,7 +173,7 @@ State f_MCAPState(int c){
 		putchar('B');
 		return ANY_STATE;
 	}
-	putchar('M');
+	putchar('M');			 /* Print whatever you remember*/
 	printChar(c);			 /* Print whatever the integer is*/
 	if (c == 236) return M_STATE;    /* If integer is a representation of greek m -> goto M_STATE*/
 	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
