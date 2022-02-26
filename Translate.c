@@ -23,7 +23,7 @@ int IsNormal(int c){
 			 237,205, 239,207, 240,208, 241,209, 242,243,211, 244,212,
 			 245,213, 246,214, 247,215, 249,217};
 	int i;
-	for (i = 0; i < 44; i++) if (greek[i] == c) return i;
+	for (i = 0; i < 45; i++) if (greek[i] == c) return i;
 	return -1;
 }
 
