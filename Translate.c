@@ -154,7 +154,7 @@ State f_MState(int c) {
 
 State f_MCAPState(int c) {
 	/* If integer is a representation of greek p or P print B*/
-	return MState('M', 'B', c);
+	return gotoState('M', 'B', c, 240, 208);
 }
 
 int main(){
