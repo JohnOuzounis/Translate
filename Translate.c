@@ -128,68 +128,33 @@ State f_AnyState(int c){
 	return ANY_STATE;
 }
 
-State f_NState(int c){
-	
-	if ((c == 244) | (c == 212)) {   /* If integer is a representation of greek t or T print d*/
-		putchar('d'); 
+State gotoState(char normal, char special, int c, int lowerCase, int upperCase) {
+	if ((c == lowerCase) | (c == upperCase)) {
+		putchar(special); 
 		return ANY_STATE;
 	}
-	putchar('n');		         /* Print whatever you remember*/
-	
-	if (c == 237) return N_STATE;    /* If integer is a representation of greek n -> goto N_STATE*/
-	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
-	if (c == 236) return M_STATE;    /* If integer is a representation of greek m -> goto M_STATE*/
-	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
-	printChar(c);                    /* Print whatever the integer is*/
-	return ANY_STATE;
+	putchar(normal);
+	return f_AnyState(c);		 /* goto next state */
+}
+
+State f_NState(int c){
+	/* If integer is a representation of greek t or T print d*/
+	return gotoState('n', 'd', c, 244, 212);
 }
 
 State f_NCAPState(int c){
-
-	if ((c == 244) | (c == 212)){    /* If integer is a representation of greek t or T print D*/
-		putchar('D');
-		return ANY_STATE;
-	}
-	putchar('N');		         /* Print whatever you remember*/
-	
-	if (c == 237) return N_STATE;    /* If integer is a representation of greek n -> goto N_STATE*/
-	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
-	if (c == 236) return M_STATE;    /* If integer is a representation of greek m -> goto M_STATE*/
-	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
-	printChar(c);                    /* Print whatever the integer is*/
-	return ANY_STATE;
+	/* If integer is a representation of greek t or T print D*/
+	return gotoState('N', 'D', c, 244, 212);
 }
 
-State f_MState(int c){
-
-	if ((c == 240) | (c == 208)) {   /* If integer is a representation of greek p or P print b*/
-		putchar('b'); 
-		return ANY_STATE;
-	}
-	putchar('m');			 /* Print whatever you remember*/
-
-	if (c == 236) return M_STATE;    /* If integer is a representation of greek m -> goto M_STATE*/
-	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
-	if (c == 237) return N_STATE;    /* If integer is a representation of greek n -> goto N_STATE*/
-	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
-	printChar(c);                    /* Print whatever the integer is*/
-	return ANY_STATE;
+State f_MState(int c) {
+	/* If integer is a representation of greek p or P print b*/
+	return gotoState('m', 'b', c, 240, 208);
 }
 
-State f_MCAPState(int c){
-
-	if ((c == 240) | (c == 208)) {   /* If integer is a representation of greek p or P print b*/
-		putchar('B');
-		return ANY_STATE;
-	}
-	putchar('M');			 /* Print whatever you remember*/
-	
-	if (c == 236) return M_STATE;    /* If integer is a representation of greek m -> goto M_STATE*/
-	if (c == 204) return MCAP_STATE; /* If integer is a representation of greek M -> goto MCAP_STATE*/
-	if (c == 237) return N_STATE;    /* If integer is a representation of greek n -> goto N_STATE*/
-	if (c == 205) return NCAP_STATE; /* If integer is a representation of greek N -> goto NCAP_STATE*/
-	printChar(c);			 /* Print whatever the integer is*/
-	return ANY_STATE;
+State f_MCAPState(int c) {
+	/* If integer is a representation of greek p or P print B*/
+	return MState('M', 'B', c);
 }
 
 int main(){
@@ -197,6 +162,10 @@ int main(){
 	State (*f_State[5])(int) = {&f_AnyState, &f_NState, &f_NCAPState, &f_MState, &f_MCAPState};
 	State currentState = ANY_STATE;
 
+	// fill state table with any state and gotoState
+	// create table for state args
+	// call gotoState(stateArgs[currentState], c)
+	
 	int c;
 	while ((c = getchar()) != EOF){
 		currentState = (*f_State[currentState])(c);
